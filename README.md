@@ -31,4 +31,4 @@ java -jar UpdatedDungeonCracker-v1_0_0.jar
 <img src= "https://github.com/Kludwisz/DungeonCracker/assets/131913157/26354794-f0bb-4175-b4cc-c1e0da8e616e" width=20% height=20%>
 
 **UNKNOWN** - Used to mark blocks that could have either generated as air or a solid block. 
-WARNING! "Unknown" markers multiply the amount of tasks to be proccessed and should only be used if a combination of the other 4 markers failed to reverse the seed.
+**WARNING!** "Unknown" markers are advanced features that multiply the amount of tasks to be proccessed and should only be used if you know what you're doing or a combination of the other 4 markers failed to reverse the seed.
