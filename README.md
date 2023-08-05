@@ -8,6 +8,6 @@ Supported versions: 1.13 - 1.17
 - To run the cracker, either double click the jar file or type:
 
 java -jar UpdatedDungeonCracker.jar
-
+in the command prompt.
 
 # Usage instructions
