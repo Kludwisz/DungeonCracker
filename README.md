@@ -11,6 +11,8 @@ java -jar UpdatedDungeonCracker-v1_0_0.jar
 
 # Usage instructions
 
+Input information via the gui - use left/right click to input dungeon floor information and input the spawner coordinates in the appropriate text fields. Make sure to specify the Minecraft version and biome as well (biome information is needed for 1.16+ only). Press "Crack seed" when ready. OPTIONAL: Use the "Loot..." button to access the loot filtering function (there is a built-in loot filtering tutorial, just press "Help" in the loot filter menu).
+
 # GUI - dungeon floor tiles
 <img src= "https://github.com/Kludwisz/DungeonCracker/assets/131913157/8ea08c2b-696b-46f5-beff-f5f2fe98a953" width=20% height=20%>
 
