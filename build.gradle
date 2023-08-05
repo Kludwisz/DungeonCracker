@@ -1,93 +1,32 @@
 plugins {
-    id "java"
-    id "application"
+  id 'java'
+  id 'application'
+  id 'org.openjfx.javafxplugin' version '0.0.9'
+  id 'com.github.johnrengelman.shadow' version '7.1.1'
 }
-defaultTasks 'clean', 'run'
 
 repositories {
     mavenCentral()
-    maven { url 'https://jitpack.io' }
-}
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-}
-repositories {
+    maven { url "https://maven.seedfinding.com" }
+    maven { url "https://maven.latticg.com/"}
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
-    implementation 'com.github.KaptainWutax:LattiCG:b2a338f7bd765dcd184136c2245ea5765b75edf8'
-    implementation('com.github.KaptainWutax:MathUtils:5531c4a87b0f1bb85d1dab2bdd18ce375400626a') { transitive = false }
-    implementation('com.github.KaptainWutax:SeedUtils:b6a383113ce5d8d09a59e91b28ff064fb97c0709') { transitive = false }
-    implementation('com.github.KaptainWutax:MCUtils:f12f3a4d33a70f4f30a9389290adf5a7ac302a8c') { transitive = false }
-    implementation('com.github.KaptainWutax:NoiseUtils:a3954932b15a889aa51c82176942d62f291c3b12') { transitive = false }
-
-    implementation('com.github.KaptainWutax:BiomeUtils:d88c6cc685a1c0e7f6df693a04ed2bd1e9176ddb') { transitive = false }
-    implementation('com.github.KaptainWutax:TerrainUtils:dbba2ba61a2c8920b48b1fb9a32fa8e9fe353d61') { transitive = false }
-    implementation('com.github.KaptainWutax:FeatureUtils:61931addbb3a41e92078aef8e3430d22af96e8f6') { transitive = false }
-
-    implementation('com.github.KaptainWutax:ChunkRandomReversal:6b76fb5cf2cd438de56e6a46cea2a83985831834') { transitive = false }
-
+	implementation('com.seedfinding:mc_math:1.171.0') { transitive = false }
+    implementation('com.seedfinding:mc_seed:1.171.1') { transitive = false }
+    implementation('com.seedfinding:mc_core:1.192.1') { transitive = false }
+    implementation('com.seedfinding:mc_reversal:1.171.1') 	{ transitive = false }
+    implementation('com.seedfinding:mc_noise:1.171.1') { transitive = false }
+	implementation('com.seedfinding:mc_biome:1.171.1') { transitive = false }
+	implementation('com.seedfinding:mc_terrain:1.171.1') { transitive = false }
+	implementation('com.seedfinding:latticg:1.06@jar')
+    implementation('com.seedfinding:mc_feature:1.171.0') { transitive = false }
 }
 
-application {
-    mainClassName = "neil.dungeons.Main8"
+javafx {
+    version = "20"
+    modules = [ 'javafx.controls' ]
 }
 
-
-compileJava {
-    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-}
-
-test {
-    useJUnitPlatform {
-        includeEngines("junit-jupiter")
-        maxHeapSize = "1G"
-    }
-    testLogging {
-        events "passed", "skipped", "failed", "standardOut", "standardError"
-        outputs.upToDateWhen { false }
-        showStandardStreams = true
-        showExceptions true
-        showCauses true
-        showStackTraces true
-    }
-}
-
-
-
-task jar15(type: Jar) {
-    manifest {
-        attributes(
-                "Implementation-Title": project.name,
-                "Implementation-Version": project.version,
-                "Main-Class": "neil.dungeons.Main15"
-        )
-    }
-    outputs.upToDateWhen{false}
-    project.archivesBaseName = "DungeonCracker15"
-    from {
-        configurations.runtimeClasspath.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
-    with jar
-}
-
-task jar14(type: Jar) {
-    manifest {
-        attributes(
-                "Implementation-Title": project.name,
-                "Implementation-Version": project.version,
-                "Main-Class": "neil.dungeons.Main14"
-        )
-    }
-    outputs.upToDateWhen{false}
-    project.archivesBaseName = "DungeonCracker14"
-    from {
-        configurations.runtimeClasspath.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
-    with jar
-}
+mainClassName = 'kludwisz.start.Launcher'
