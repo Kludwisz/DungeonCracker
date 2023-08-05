@@ -37,7 +37,7 @@ public class SpawnerCoords {
 			textField.setMaxWidth(100.0D);
 
 			textField.setOnKeyTyped(event -> {
-				Platform.runLater(() -> DungeonCracker.generate.update());
+				Platform.runLater(() -> DungeonCracker.genOptions.update());
 			});
 		}
 	}

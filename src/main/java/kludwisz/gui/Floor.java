@@ -1,5 +1,7 @@
 package kludwisz.gui;
 
+import java.util.Objects;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -7,8 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
-
-import java.util.Objects;
 
 public class Floor {
 
@@ -34,7 +34,8 @@ public class Floor {
 	}
 
 	public ImageView[][] floorPattern = new ImageView[9][9];
-	public Button floorSizeButton;
+	public final Button floorSizeButton;
+	private final Button clearFloor;
 	public FloorSize floorSize = FloorSize._9x9;
 
 	public Floor() {
@@ -69,23 +70,29 @@ public class Floor {
 				this.floorPattern[i][j] = imageView;
 			}
 		}
-
-		this.floorSizeButton = new Button();
-		this.floorSizeButton.setScaleY(2.0D);
-		this.floorSizeButton.setScaleX(2.0D);
-		this.floorSizeButton.setTranslateX(320.0D);
-		this.floorSizeButton.setTranslateY(-280.0D);
-
+		
+		this.floorSizeButton = ButtonMaker.make(2, 2, 200, -280);
 		this.floorSizeButton.setOnMouseClicked(event -> {
 			this.floorSize = this.floorSize.next();
 			this.updateFloorSize(false);
 		});
-
 		this.updateFloorSize(true);
+		
+		this.clearFloor = ButtonMaker.make(2, 2, 480, -280);
+		this.clearFloor.setText(" Clear Floor Pattern ");
+		this.clearFloor.setOnMouseClicked(event -> {
+			for (int i = 0; i < this.floorPattern.length; i++) {
+				for (int j = 0; j < this.floorPattern[i].length; j++) {
+					this.floorPattern[i][j].setImage(UNKNOWN_SOLID);
+				}
+			}
+			this.floorSize = FloorSize._9x9;
+			this.updateFloorSize(false);
+		});
 	}
 
 	private void updateFloorSize(boolean init) {
-		this.floorSizeButton.setText("          Floor Size: " + this.floorSize.toString() + "          ");
+		this.floorSizeButton.setText("    Floor Size: " + this.floorSize.toString() + "    ");
 
 		for (int i = 0; i < this.floorPattern.length; i++) {
 			for (int j = 0; j < this.floorPattern[i].length; j++) {
@@ -133,15 +140,21 @@ public class Floor {
 		east.setTranslateX(135.0D);
 		east.setTranslateY(-40.0D);
 
-		pane.getChildren().add(this.floorSizeButton);
+		pane.getChildren().addAll(this.floorSizeButton, this.clearFloor);
 		pane.getChildren().addAll(north, south, west, east);
 	}
 	
 	public String getSequence() {
 		String seq = "";
-		for (int j=0; j<this.floorPattern[0].length; j++) 
-			for (int i=0; i<this.floorPattern.length; i++) {
-				ImageView imageView = this.floorPattern[i][j];
+		int xMin = this.floorSize == FloorSize._7x7 || this.floorSize == FloorSize._7x9 ? 1 : 0;
+		int zMin = this.floorSize == FloorSize._7x7 || this.floorSize == FloorSize._9x7 ? 1 : 0;
+		int xMax = this.floorSize == FloorSize._7x7 || this.floorSize == FloorSize._7x9 ? 8 : 9;
+		int zMax = this.floorSize == FloorSize._7x7 || this.floorSize == FloorSize._9x7 ? 8 : 9;
+		//System.out.println(xMax + " " + zMax);
+		
+		for (int x=xMin; x<xMax; x++) 
+			for (int z=zMin; z<zMax; z++) {
+				ImageView imageView = this.floorPattern[z][x];
 				int ix = indexOf(imageView.getImage());
 			seq += Integer.toString(ix);	
 		}
